@@ -6,7 +6,7 @@ url="https://uk-air.defra.gov.uk/latest/currentlevels?view=site"
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36'}
 
 result = requests.get(url,headers=headers)
-soup=BeautifulSoup(result.text,'html')
+soup = BeautifulSoup(result.text,'html')
 
 links = []
 for link in soup.findAll('a', attrs={'href': re.compile("../networks/site-info")}):
@@ -32,12 +32,12 @@ for full_link in full_links:
   uk_air_id = (list_uk_air_id[2]).replace(' ','')
 
   list_eu_site_id = soup_test.find_all(string=re.compile("GB"))
-  eu_site_id=(list_eu_site_id[0]).replace(' ','')
+  eu_site_id = (list_eu_site_id[0]).replace(' ','')
 
   list_name = soup2.find_all(string=re.compile("Site Information for"))
   fullname = list_name[0]
 
-  fullname2,b=fullname.split("(")
+  fullname2,b = fullname.split("(")
   name = fullname2.replace('    Site Information for ', '')
 
   list_region = soup2.findAll('p')
