@@ -1,5 +1,5 @@
 from csv import reader
-with open('sites.csv', 'r') as reader
+with open('sites.csv', 'r') as reader:
     csv_reader = reader(read_obj)
     list_of_rows = list(csv_reader)
     for list in list_of_rows:
