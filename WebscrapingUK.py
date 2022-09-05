@@ -25,18 +25,15 @@ for full_link in full_links:
     result2 = requests.get(full_link,headers=headers)
     soup2 = BeautifulSoup(result2.text,'lxml')
 
-    uk_air_id = soup2.find_all(string=re.compile("UKA"))[2].replace(' ','')
-
-    eu_site_id = soup2.find_all(string=re.compile("GB"))[0].replace(' ','')
+    uk_air_id = soup2.find(text=re.compile("UK-AIR ID:")).find_parent("p").get_text().replace("UK-AIR ID: ","")
+    eu_site_id = soup2.find(text=re.compile("EU Site ID:")).find_parent("p").get_text().replace("EU Site ID: ","")
+    region = soup2.find(text=re.compile("Government Region:")).find_parent("p").get_text().replace("Government Region: ","")
+    coordinates = soup2.find(text=re.compile("Latitude/Longitude:")).find_parent("p").get_text().replace("Latitude/Longitude: ","")
+    latitude,longitude = coordinates.split(', ')
 
     fullname = soup2.find_all(string=re.compile("Site Information for"))[0]
     name = fullname.split("(")[0].replace('    Site Information for ', '')
 
-    region = soup2.find(text=re.compile("Government Region:")).find_parent("p").get_text().replace("Government Region: ","")
-
-    coordinates = soup2.find(text=re.compile("Latitude/Longitude:")).find_parent("p").get_text().replace("Latitude/Longitude: ","")
-
-    latitude,longitude = coordinates.split(', ')
     worldlocation = geolocator.reverse(coordinates, exactly_one=True)
     address = worldlocation.raw['address']
     city = address.get('city', '')
