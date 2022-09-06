@@ -31,12 +31,11 @@ for full_link in full_links:
     coordinates = soup2.find(text=re.compile("Latitude/Longitude:")).find_parent("p").get_text().replace("Latitude/Longitude: ","")
     latitude,longitude = coordinates.split(', ')
 
-    fullname = soup2.find_all(string=re.compile("Site Information for"))[0]
-    name = fullname.split("(")[0].replace('    Site Information for ', '')
+    h1 = soup2.find_all(string=re.compile("Site Information for"))[0]
+    name = h1.split("(")[0].replace('    Site Information for ', '')
 
     worldlocation = geolocator.reverse(coordinates, exactly_one=True)
     address = worldlocation.raw['address']
     city = address.get('city', '')
 
     print(uk_air_id + ',' + eu_site_id + ',' + site_id + ',' + name + ',' + city + ',' + region + ',' + latitude + ',' + longitude)
-
