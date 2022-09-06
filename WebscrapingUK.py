@@ -3,7 +3,7 @@ import re
 from bs4 import BeautifulSoup
 from geopy.geocoders import Nominatim
 
-geolocator = Nominatim(user_agent="geoapiExercises")
+geolocator = Nominatim(user_agent="get_city_name")
 
 url = "https://uk-air.defra.gov.uk/latest/currentlevels?view=site"
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36'}
